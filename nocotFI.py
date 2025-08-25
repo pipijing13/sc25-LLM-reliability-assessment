@@ -254,7 +254,7 @@ def main():
         }
         num_layers = 28
         def get_layer(idx):
-            return model.model.model.layers[idx]
+            return model.model.layers[idx]
     else:
         raise ValueError(f"Unsupported model type: {model_type}")
     print("Model and tokenizer loaded")
