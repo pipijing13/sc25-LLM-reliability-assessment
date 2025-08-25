@@ -234,7 +234,12 @@ def main():
         if tokenizer.pad_token is None:
             tokenizer.add_special_tokens({'pad_token': '[PAD]'})
         tokenizer.padding_side = 'left'
-        model = lm_eval.models.huggingface.HFLM(pretrained=model_name, dtype=torch.bfloat16, device_map="cuda")
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            torch_dtype=torch.bfloat16,
+            device_map="cuda"
+        )
+        model.resize_token_embeddings(len(tokenizer))
         # Qwen structure
         layer_weights = {
             'self_attn.v_proj': 1,
@@ -247,7 +252,7 @@ def main():
         }
         num_layers = 28
         def get_layer(idx):
-            return model.model.model.layers[idx]
+            return model.model.layers[idx]
     else:
         raise ValueError(f"Unsupported model type: {model_type}")
     print("Model and tokenizer loaded")
