@@ -12,7 +12,6 @@ import lm_eval
 import tinyBenchmarks
 import argparse
 
-# Set environment variables and seed for reproducibility
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 torch.multiprocessing.set_start_method('spawn', force=True)
 
@@ -317,3 +316,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
